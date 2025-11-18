@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  dev:
+    build:
+      context: ./app
+      dockerfile: .dockerfile
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+      - dist-volume:/app/dist
+    ports:
+      - "3000:3000"
+    # command: [sh, -c, "npm install && npm run dev"]
+    command: ["npm", "run", "dev"]
+
+
+  test:
+    build:
+      context: ./app
+      dockerfile: .dockerfile
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+    command: ["npm", "test"]
+
+  prod:
+    build:
+      context: ./production
+      dockerfile: .dockerfile
+    volumes:
+      - dist-volume:/usr/share/nginx/html
+    ports:
+      - "8080:80"
+    depends_on:
+      - dev
+
+volumes:
+  dist-volume:
