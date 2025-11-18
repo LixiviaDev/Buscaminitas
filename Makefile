@@ -3,6 +3,9 @@ dev:
 clean-dev:
 	docker compose down dev
 
+github-deploy:
+	docker compose run --rm github-deploy
+
 test:
 	docker compose run --rm test
 
