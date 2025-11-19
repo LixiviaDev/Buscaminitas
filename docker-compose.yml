@@ -14,17 +14,6 @@ services:
     # command: [sh, -c, "npm install && npm run dev"]
     command: ["npm", "run", "dev"]
 
-  github-deploy:
-    build:
-      context: ./githubPages
-      dockerfile: .dockerfile
-    volumes:
-      - .:/app
-      - /app/app/node_modules
-      - ./app/dist:/app/app/dist
-    working_dir: /app/app
-    command: ["npm", "run", "github-deploy"]
-
   test:
     build:
       context: ./app
@@ -40,6 +29,7 @@ services:
       dockerfile: .dockerfile
     volumes:
       - ./app/dist:/usr/share/nginx/html
+      - ./production/conf.d:/etc/nginx/conf.d
     ports:
       - "8080:80"
     depends_on:

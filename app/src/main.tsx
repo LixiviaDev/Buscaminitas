@@ -1,6 +1,6 @@
 // import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from "react-router";
+import { HashRouter, Routes, Route } from "react-router";
 import './index.css'
 import App from './App.tsx'
 import Paco from './paco/paco.tsx'
@@ -9,10 +9,12 @@ createRoot(document.getElementById('root')!).render(
   // <StrictMode>
   //   <App />
   // </StrictMode>,
-  <BrowserRouter>
+  <HashRouter>
     <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/paco" element={<Paco />} />
+      <Route index element={<App />} />
+      <Route path="paco" element={<Paco />} />
+      {/* <Route path={`${import.meta.env.VITE_URI_PREFIX}`}>
+      </Route> */}
     </Routes> 
-  </BrowserRouter>,
+  </HashRouter>,
 )
